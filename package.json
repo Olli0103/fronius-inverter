@@ -31,20 +31,6 @@
       "type": "textfield",
       "default": "http://192.168.0.75",
       "required": true
-    },
-    {
-      "name": "language",
-      "title": "Language",
-      "description": "Select the language for the extension",
-      "type": "dropdown",
-      "data": [
-        { "title": "English", "value": "en" },
-        { "title": "Deutsch", "value": "de" },
-        { "title": "Français", "value": "fr" },
-        { "title": "Español", "value": "es" }
-      ],
-      "default": "en",
-      "required": true
     }
   ],
   "main": "src/dashboard.tsx",

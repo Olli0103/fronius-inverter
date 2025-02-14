@@ -3,7 +3,6 @@ import { ActionPanel, Action, List, getPreferenceValues, showToast, Toast, Icon 
 import { useEffect, useState } from "react";
 import { fetchInverterInfo, fetchPowerFlowRealtimeData } from "./api";
 import { InverterInfo } from "./types";
-import t from "./i18n";
 
 interface Preferences {
   baseUrl: string;
@@ -76,7 +75,7 @@ export default function CombinedDashboard() {
       }
     } catch (error: unknown) {
       const errMsg = error instanceof Error ? error.message : String(error);
-      showToast(Toast.Style.Failure, t("errorLoadingData"), errMsg);
+      showToast(Toast.Style.Failure, "Error loading data", errMsg);
     } finally {
       setIsLoading(false);
     }
@@ -113,71 +112,71 @@ export default function CombinedDashboard() {
 
   const systemItems = systemOverview
     ? [
-        { label: t("totalEnergy"), value: convertWhToKwh(systemOverview.E_Total), emoji: "🔋" },
-        { label: t("pvPower"), value: formatPower(systemOverview.P_PV), emoji: "🌞" },
-        { label: t("loadPower"), value: formatPower(systemOverview.P_Load), emoji: "🔌" },
-        { label: t("gridPower"), value: formatPower(systemOverview.P_Grid), emoji: "⚡" },
-        { label: t("batteryPower"), value: formatPower(systemOverview.P_Akku), emoji: "🔋" },
+        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "🔋" },
+        { label: "PV Power", value: formatPower(systemOverview.P_PV), emoji: "🌞" },
+        { label: "Load Power", value: formatPower(systemOverview.P_Load), emoji: "🔌" },
+        { label: "Grid Power", value: formatPower(systemOverview.P_Grid), emoji: "⚡" },
+        { label: "Battery Power", value: formatPower(systemOverview.P_Akku), emoji: "🔋" },
         systemOverview.BatterySOC !== null
-          ? { label: t("batteryCharge"), value: formatPercentage(systemOverview.BatterySOC), emoji: "🔋" }
+          ? { label: "Battery Charge", value: formatPercentage(systemOverview.BatterySOC), emoji: "🔋" }
           : null,
-        { label: t("autonomy"), value: formatPercentage(systemOverview.rel_Autonomy), emoji: "📊" },
-        { label: t("selfConsumption"), value: formatPercentage(systemOverview.rel_SelfConsumption), emoji: "📈" },
+        { label: "Autonomy", value: formatPercentage(systemOverview.rel_Autonomy), emoji: "📊" },
+        { label: "Self Consumption", value: formatPercentage(systemOverview.rel_SelfConsumption), emoji: "📈" },
         {
-          label: t("backupMode"),
+          label: "Backup Mode",
           value:
             typeof systemOverview.BackupMode === "boolean"
               ? systemOverview.BackupMode
-                ? t("enabled")
-                : t("disabled")
+                ? "Enabled"
+                : "Disabled"
               : String(systemOverview.BackupMode),
           emoji: "🔧",
         },
         {
-          label: t("batteryStandby"),
+          label: "Battery Standby",
           value:
             typeof systemOverview.BatteryStandby === "boolean"
               ? systemOverview.BatteryStandby
-                ? t("active")
-                : t("inactive")
+                ? "Active"
+                : "Inactive"
               : String(systemOverview.BatteryStandby),
           emoji: "⚙️",
         },
         ...(ohmpilotEnergy !== null
-          ? [{ label: t("ohmpilotEnergy"), value: convertWhToKwh(ohmpilotEnergy), emoji: "📡" }]
+          ? [{ label: "Ohmpilot Energy", value: convertWhToKwh(ohmpilotEnergy), emoji: "📡" }]
           : []),
       ].filter((item): item is { label: string; value: string; emoji: string } => item !== null)
     : [];
 
   const inverterListItems = inverterItems.map((inv) => ({
     title: inv.info.CustomName || `Inverter ${inv.id}`,
-    subtitle: `${t("stateColon")} ${inv.info.InverterState} • ${inv.info.PVPower} W`,
+    subtitle: `${"State:"} ${inv.info.InverterState} • ${inv.info.PVPower} W`,
     accessory: inv.info.ErrorCode !== 0 && inv.info.ErrorCode !== -1 ? `⚠️ ${inv.info.ErrorCode}` : "OK",
   }));
 
   return (
-    <List isLoading={isLoading} searchBarPlaceholder={t("searchPlaceholder")}>
-      <List.Section title={t("inverterInfoSection")}>
+    <List isLoading={isLoading} searchBarPlaceholder={"Search..."}>
+      <List.Section title={"Inverter Info"}>
         {inverterListItems.map((item, idx) => (
           <List.Item key={idx} title={item.title} subtitle={item.subtitle} accessories={[{ text: item.accessory }]} />
         ))}
       </List.Section>
-      <List.Section title={t("systemOverviewSection")}>
+      <List.Section title={"System Overview"}>
         {systemItems.map((item, idx) => (
           <List.Item key={idx} title={`${item.emoji} ${item.label}`} accessories={[{ text: item.value }]} />
         ))}
       </List.Section>
       <List.Item
-        title={t("refresh")}
+        title={"Refresh"}
         icon={Icon.ArrowClockwise}
         actions={
           <ActionPanel>
-            <Action title={t("refresh")} icon={Icon.ArrowClockwise} onAction={loadData} />
+            <Action title={"Refresh"} icon={Icon.ArrowClockwise} onAction={loadData} />
           </ActionPanel>
         }
       />
       {!inverterItems.length && !systemOverview && !isLoading && (
-        <List.EmptyView title={t("noData")} description={t("tryRefreshing")} />
+        <List.EmptyView title={"No data available"} description={"Try refreshing the data"} />
       )}
     </List>
   );
