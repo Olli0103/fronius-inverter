@@ -47,7 +47,6 @@ export interface OhmpilotData {
   CodeOfState: number;
   EnergyReal_WAC_Sum_Consumed: number;
 }
-
 export interface PowerFlowRealtimeDataResponse {
   Body: {
     Data: {

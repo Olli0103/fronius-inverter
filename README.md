@@ -1,6 +1,6 @@
 # Fronius Inverter
 
-A Raycast extension to monitor your Fronius Gen24 inverter in realtime. This extension provides a unified dashboard that displays detailed inverter information and key system metrics. In addition, it includes a background menu‑bar command ("Inverter Watch") that continuously monitors for errors and allows you to quickly open the full dashboard.
+A Raycast extension to monitor your Fronius Gen24 inverter in realtime. This extension provides a unified dashboard that displays detailed inverter information and important system metrics. In addition, it includes a background menu‑bar command ("Inverter Watch") that continuously monitors for errors and allows you to quickly open the full dashboard.
 
 ## Features
 
