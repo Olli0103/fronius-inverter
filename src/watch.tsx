@@ -3,7 +3,6 @@ import { MenuBarExtra, getPreferenceValues, showToast, Toast, open } from "@rayc
 import { useEffect, useState } from "react";
 import { fetchInverterInfo, fetchPowerFlowRealtimeData } from "./api";
 // import { InverterInfoResponse, PowerFlowRealtimeDataResponse } from "./types";
-import t from "./i18n";
 
 interface Preferences {
   baseUrl: string;
@@ -86,7 +85,7 @@ export default function Watch() {
       }
     } catch (error: unknown) {
       const errMsg = error instanceof Error ? error.message : String(error);
-      await showToast(Toast.Style.Failure, t("errorLoadingData"), errMsg);
+      await showToast(Toast.Style.Failure, "Error loading data", errMsg);
       setErrorCount(0);
     }
   }
@@ -107,7 +106,7 @@ export default function Watch() {
   // Build a minimal list for the menu bar.
   const inverterListItems = inverterItems.map((inv) => ({
     title: inv.CustomName || `Inverter ${inv.id}`,
-    subtitle: `${t("stateColon")} ${inv.InverterState} • ${inv.PVPower} W`,
+    subtitle: `${"State:"} ${inv.InverterState} • ${inv.PVPower} W`,
     accessory: inv.ErrorCode !== 0 && inv.ErrorCode !== -1 ? `⚠️ ${inv.ErrorCode}` : "OK",
   }));
 
@@ -135,16 +134,16 @@ export default function Watch() {
 
   const systemItems = systemOverview
     ? [
-        { label: t("totalEnergy"), value: convertWhToKwh(systemOverview.E_Total), emoji: "🔋" },
-        { label: t("pvPower"), value: formatPower(systemOverview.P_PV), emoji: "🌞" },
-        { label: t("loadPower"), value: formatPower(systemOverview.P_Load), emoji: "🔌" },
-        { label: t("gridPower"), value: formatPower(systemOverview.P_Grid), emoji: "⚡" },
-        { label: t("batteryPower"), value: formatPower(systemOverview.P_Akku), emoji: "🔋" },
+        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "🔋" },
+        { label: "PV Power", value: formatPower(systemOverview.P_PV), emoji: "🌞" },
+        { label: "Load Power", value: formatPower(systemOverview.P_Load), emoji: "🔌" },
+        { label: "Grid Power", value: formatPower(systemOverview.P_Grid), emoji: "⚡" },
+        { label: "Battery Power", value: formatPower(systemOverview.P_Akku), emoji: "🔋" },
         systemOverview.BatterySOC !== null
-          ? { label: t("batteryCharge"), value: formatPercentage(systemOverview.BatterySOC), emoji: "🔋" }
+          ? { label: "Battery Charge", value: formatPercentage(systemOverview.BatterySOC), emoji: "🔋" }
           : null,
         ...(ohmpilotEnergy !== null
-          ? [{ label: t("ohmpilotEnergy"), value: convertWhToKwh(ohmpilotEnergy), emoji: "📡" }]
+          ? [{ label: "Ohmpilot Energy", value: convertWhToKwh(ohmpilotEnergy), emoji: "📡" }]
           : []),
       ].filter((item): item is { label: string; value: string; emoji: string } => item !== null)
     : [];
@@ -152,20 +151,20 @@ export default function Watch() {
   return (
     <MenuBarExtra
       title={errorCount > 0 ? `⚠️ ${errorCount}` : "✔️"}
-      tooltip={errorCount > 0 ? t("watchErrorDetected") : t("watchNoErrors")}
+      tooltip={errorCount > 0 ? "Error Detected" : "No Errors Detected"}
     >
-      <MenuBarExtra.Section title={t("inverterInfoSection")}>
+      <MenuBarExtra.Section title={"Inverter Info"}>
         {inverterListItems.map((item, idx) => (
           <MenuBarExtra.Item key={idx} title={item.title} subtitle={item.subtitle} />
         ))}
       </MenuBarExtra.Section>
-      <MenuBarExtra.Section title={t("systemOverviewSection")}>
+      <MenuBarExtra.Section title={"System Overview"}>
         {systemItems.map((item, idx) => (
           <MenuBarExtra.Item key={idx} title={`${item.emoji} ${item.label}`} subtitle={item.value} />
         ))}
       </MenuBarExtra.Section>
-      <MenuBarExtra.Item title={t("showDashboard")} onAction={openDashboard} />
-      <MenuBarExtra.Item title={t("refreshWatch")} onAction={loadDashboardData} />
+      <MenuBarExtra.Item title={"Show Dashboard"} onAction={openDashboard} />
+      <MenuBarExtra.Item title={"Refresh Watch"} onAction={loadDashboardData} />
     </MenuBarExtra>
   );
 }
