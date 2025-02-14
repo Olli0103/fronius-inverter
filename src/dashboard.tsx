@@ -81,11 +81,8 @@ export default function CombinedDashboard() {
     }
   }
 
-  // Auto-refresh every 60 seconds
   useEffect(() => {
     loadData();
-    const interval = setInterval(loadData, 60000);
-    return () => clearInterval(interval);
   }, [baseUrl]);
 
   // Formatting helpers
@@ -166,18 +163,17 @@ export default function CombinedDashboard() {
           <List.Item key={idx} title={`${item.emoji} ${item.label}`} accessories={[{ text: item.value }]} />
         ))}
       </List.Section>
-      <List.Item
-        title={"Refresh"}
-        icon={Icon.ArrowClockwise}
-        actions={
-          <ActionPanel>
-            <Action title={"Refresh"} icon={Icon.ArrowClockwise} onAction={loadData} />
-          </ActionPanel>
-        }
-      />
-      {!inverterItems.length && !systemOverview && !isLoading && (
-        <List.EmptyView title={"No data available"} description={"Try refreshing the data"} />
-      )}
+      {!inverterItems.length && !systemOverview && !isLoading ? (
+        <List.EmptyView
+          title={"No data available"}
+          description={"Try refreshing the data"}
+          actions={
+            <ActionPanel>
+              <Action title={"Refresh"} icon={Icon.ArrowClockwise} onAction={loadData} />
+            </ActionPanel>
+          }
+        />
+      ) : null}
     </List>
   );
 }
