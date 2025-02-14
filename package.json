@@ -6,7 +6,7 @@
   "author": "Olli0103",
   "categories": ["Applications"],
   "license": "MIT",
-  "commands": [
+"commands": [
     {
       "name": "dashboard",
       "title": "Fronius Dashboard",
