@@ -134,13 +134,13 @@ export default function Watch() {
 
   const systemItems = systemOverview
     ? [
-        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "🔋" },
+        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "💯" },
         { label: "PV Power", value: formatPower(systemOverview.P_PV), emoji: "🌞" },
         { label: "Load Power", value: formatPower(systemOverview.P_Load), emoji: "🔌" },
         { label: "Grid Power", value: formatPower(systemOverview.P_Grid), emoji: "⚡" },
         { label: "Battery Power", value: formatPower(systemOverview.P_Akku), emoji: "🔋" },
         systemOverview.BatterySOC !== null
-          ? { label: "Battery Charge", value: formatPercentage(systemOverview.BatterySOC), emoji: "🔋" }
+          ? { label: "Battery Charge", value: formatPercentage(systemOverview.BatterySOC), emoji: "🪫" }
           : null,
         ...(ohmpilotEnergy !== null
           ? [{ label: "Ohmpilot Energy", value: convertWhToKwh(ohmpilotEnergy), emoji: "📡" }]
