@@ -104,6 +104,7 @@ export default function Watch() {
 
   // Build a minimal list for the menu bar.
   const inverterListItems = inverterItems.map((inv) => ({
+    id: inv.id, // Ensure the id is included here
     title: inv.CustomName || `Inverter ${inv.id}`,
     subtitle: `State: ${inv.InverterState} • ${inv.PVPower} W`,
     accessory: inv.ErrorCode !== 0 && inv.ErrorCode !== -1 ? `⚠️ ${inv.ErrorCode}` : "OK",
@@ -153,13 +154,13 @@ export default function Watch() {
       tooltip={errorCount > 0 ? "Error Detected" : "No Errors Detected"}
     >
       <MenuBarExtra.Section title={"Inverter Info"}>
-        {inverterListItems.map((item, idx) => (
-          <MenuBarExtra.Item key={idx} title={item.title} subtitle={item.subtitle} />
+      {inverterListItems.map((item) => (
+          <MenuBarExtra.Item key={item.id} title={item.title} subtitle={item.subtitle} />
         ))}
       </MenuBarExtra.Section>
       <MenuBarExtra.Section title={"System Overview"}>
-        {systemItems.map((item, idx) => (
-          <MenuBarExtra.Item key={idx} title={`${item.emoji} ${item.label}`} subtitle={item.value} />
+      {systemItems.map((item) => (
+          <MenuBarExtra.Item key={item.label} title={`${item.emoji} ${item.label}`} subtitle={item.value} />
         ))}
       </MenuBarExtra.Section>
       <MenuBarExtra.Item title={"Show Dashboard"} onAction={openDashboard} />

@@ -109,13 +109,13 @@ export default function CombinedDashboard() {
 
   const systemItems = systemOverview
     ? [
-        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "🔋" },
+        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "💯"  },
         { label: "PV Power", value: formatPower(systemOverview.P_PV), emoji: "🌞" },
         { label: "Load Power", value: formatPower(systemOverview.P_Load), emoji: "🔌" },
         { label: "Grid Power", value: formatPower(systemOverview.P_Grid), emoji: "⚡" },
         { label: "Battery Power", value: formatPower(systemOverview.P_Akku), emoji: "🔋" },
         systemOverview.BatterySOC !== null
-          ? { label: "Battery Charge", value: formatPercentage(systemOverview.BatterySOC), emoji: "🔋" }
+          ? { label: "Battery Charge", value: formatPercentage(systemOverview.BatterySOC), emoji: "🪫" }
           : null,
         { label: "Autonomy", value: formatPercentage(systemOverview.rel_Autonomy), emoji: "📊" },
         { label: "Self Consumption", value: formatPercentage(systemOverview.rel_SelfConsumption), emoji: "📈" },
