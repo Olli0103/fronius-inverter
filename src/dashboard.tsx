@@ -109,7 +109,7 @@ export default function CombinedDashboard() {
 
   const systemItems = systemOverview
     ? [
-        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "💯"  },
+        { label: "Total Energy", value: convertWhToKwh(systemOverview.E_Total), emoji: "💯" },
         { label: "PV Power", value: formatPower(systemOverview.P_PV), emoji: "🌞" },
         { label: "Load Power", value: formatPower(systemOverview.P_Load), emoji: "🔌" },
         { label: "Grid Power", value: formatPower(systemOverview.P_Grid), emoji: "⚡" },

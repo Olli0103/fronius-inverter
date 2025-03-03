@@ -154,12 +154,12 @@ export default function Watch() {
       tooltip={errorCount > 0 ? "Error Detected" : "No Errors Detected"}
     >
       <MenuBarExtra.Section title={"Inverter Info"}>
-      {inverterListItems.map((item) => (
+        {inverterListItems.map((item) => (
           <MenuBarExtra.Item key={item.id} title={item.title} subtitle={item.subtitle} />
         ))}
       </MenuBarExtra.Section>
       <MenuBarExtra.Section title={"System Overview"}>
-      {systemItems.map((item) => (
+        {systemItems.map((item) => (
           <MenuBarExtra.Item key={item.label} title={`${item.emoji} ${item.label}`} subtitle={item.value} />
         ))}
       </MenuBarExtra.Section>
