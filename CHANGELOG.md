@@ -1,5 +1,16 @@
 # Changelog
 
+## Version 1.1
+
+- Added comprehensive documentation with detailed JSDoc comments throughout the codebase.
+
+- **AI-Powered Analysis Tools:**
+  - Added system analysis tool that provides insights about current production, consumption, and energy flow.
+  - Implemented error explanation tool that interprets inverter error codes and suggests troubleshooting steps.
+  - Created optimization suggestions tool that offers practical tips to improve system performance based on current data.
+  - All AI tools fetch real-time data directly from the Fronius API for accurate analysis.
+
+
 ## [Initial Release] - {PR_MERGE_DATE}
 
 - **Unified Dashboard:**  
